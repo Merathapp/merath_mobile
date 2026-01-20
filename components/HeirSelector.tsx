@@ -47,7 +47,14 @@ export function HeirSelector({ onHeirsChange }: HeirSelectorProps) {
   const [selectedCount, setSelectedCount] = useState(1);
   const [error, setError] = useState<string | null>(null);
 
-  const safeHeirs = (heirs || {}) as HeirsData;
+  // Convert array heirs to HeirsData object
+  const heirsArray = (heirs as any) || [];
+  const safeHeirs: HeirsData = {};
+  if (Array.isArray(heirsArray)) {
+    heirsArray.forEach((heir: any) => {
+      safeHeirs[heir.key] = heir.count;
+    });
+  }
 
   const handleAddHeir = useCallback(() => {
     try {

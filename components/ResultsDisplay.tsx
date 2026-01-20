@@ -28,7 +28,8 @@ export interface ResultsDisplayProps {
  * Displays calculation results with distribution details
  */
 export function ResultsDisplay({ result, onClose }: ResultsDisplayProps) {
-  const { results, stats, compareResults } = useResults();
+  const hooksResults = useResults();
+  const results = hooksResults?.previousResults || [];
   const [showComparison, setShowComparison] = useState(false);
   const [selectedResultId, setSelectedResultId] = useState<number | null>(null);
 
