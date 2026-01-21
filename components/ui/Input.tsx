@@ -60,10 +60,11 @@ export const ModernInput: React.FC<ModernInputProps> = ({
   };
 
   const labelStyle: TextStyle = {
-    ...typography.bodyMedium,
-    color: error ? colors.error : colors.onSurfaceVariant,
-    marginBottom: spacing.xs,
+    fontSize: 14,
+    lineHeight: 20,
     fontWeight: '500',
+    color: error ? colors.status.error : colors.text.secondary_light,
+    marginBottom: spacing.xs,
   };
 
   const inputContainerStyle: ViewStyle = {
@@ -73,26 +74,28 @@ export const ModernInput: React.FC<ModernInputProps> = ({
     paddingVertical: multiline ? spacing.md : 0,
     borderWidth: 1,
     borderRadius: borderRadius.md,
-    backgroundColor: disabled ? colors.surfaceVariant : colors.surface,
+    backgroundColor: disabled ? '#F5F5F5' : '#FFFFFF',
     borderColor: error
-      ? colors.error
+      ? colors.status.error
       : focused
       ? colors.primary
-      : colors.outline,
+      : colors.secondary,
     marginTop: spacing.xs,
   };
 
   const textInputStyle: TextStyle = {
     flex: 1,
-    ...typography.bodyMedium,
-    color: colors.onSurface,
+    fontSize: 14,
+    lineHeight: 20,
+    color: colors.text.primary_light,
     paddingVertical: multiline ? 0 : spacing.md,
     paddingHorizontal: spacing.sm,
   };
 
   const errorStyle: TextStyle = {
-    ...typography.bodySmall,
-    color: colors.error,
+    fontSize: 12,
+    lineHeight: 16,
+    color: colors.status.error,
     marginTop: spacing.xs,
   };
 
@@ -108,7 +111,7 @@ export const ModernInput: React.FC<ModernInputProps> = ({
         <TextInput
           style={[textInputStyle, inputStyle]}
           placeholder={placeholder}
-          placeholderTextColor={colors.onSurfaceVariant}
+          placeholderTextColor={colors.text.tertiary_light}
           value={value}
           onChangeText={onChangeText}
           keyboardType={keyboardType}
