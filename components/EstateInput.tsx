@@ -24,9 +24,9 @@ export function EstateInput({ onEstateChange, initialEstate }: EstateInputProps)
   const { estateData, updateEstateData } = useCalculator();
 
   const [total, setTotal] = useState(initialEstate?.total.toString() || estateData.total.toString());
-  const [funeral, setFuneral] = useState(initialEstate?.funeral.toString() || estateData.funeral.toString());
-  const [debts, setDebts] = useState(initialEstate?.debts.toString() || estateData.debts.toString());
-  const [will, setWill] = useState(initialEstate?.will.toString() || estateData.will.toString());
+  const [funeral, setFuneral] = useState((initialEstate?.funeral ?? initialEstate?.funeralCosts ?? estateData.funeral ?? estateData.funeralCosts ?? 0).toString());
+  const [debts, setDebts] = useState((initialEstate?.debts ?? estateData.debts ?? 0).toString());
+  const [will, setWill] = useState((initialEstate?.will ?? initialEstate?.willAmount ?? estateData.will ?? estateData.willAmount ?? 0).toString());
   const [error, setError] = useState<string | null>(null);
 
   const handleTotalChange = useCallback((text: string) => {
@@ -71,7 +71,11 @@ export function EstateInput({ onEstateChange, initialEstate }: EstateInputProps)
 
   const validateAndUpdate = (estate: EstateData) => {
     // التحقق من الصحة
-    if (estate.total < 0 || estate.funeral < 0 || estate.debts < 0 || estate.will < 0) {
+    const funeralVal = estate.funeral ?? estate.funeralCosts ?? 0;
+    const debtsVal = estate.debts ?? 0;
+    const willVal = estate.will ?? estate.willAmount ?? 0;
+    
+    if (estate.total < 0 || funeralVal < 0 || debtsVal < 0 || willVal < 0) {
       setError('جميع القيم يجب أن تكون موجبة');
       return;
     }

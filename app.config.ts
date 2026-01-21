@@ -1,5 +1,3 @@
-// Load environment variables with proper priority (system > .env)
-import "./scripts/load-env.js";
 import type { ExpoConfig } from "expo/config";
 
 // Bundle ID format: space.manus.<project_name_dots>.<timestamp>
@@ -25,17 +23,28 @@ const env = {
 const config: ExpoConfig = {
   name: env.appName,
   slug: env.appSlug,
-  version: "1.1.3",
+  version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/images/icon.png",
   scheme: env.scheme,
   userInterfaceStyle: "automatic",
   newArchEnabled: true,
+  
+  description: 'تطبيق شامل لحساب المواريث الشرعية بدعم المذاهب الفقهية الأربعة',
+  platforms: ["ios", "android"],
 
-  // <<< Added EAS project ID here >>>
+  // <<< Phase 6: Enhanced EAS Configuration >>>
   extra: {
     eas: {
       projectId: "2c2de43d-16e9-4c3f-88b6-be678d534494"
+    },
+    // App metadata for deep linking and sharing
+    appMetadata: {
+      version: "1.0.0",
+      buildNumber: 1,
+      releaseDate: new Date().toISOString(),
+      phase: 6,
+      status: "production",
     }
   },
 
@@ -56,7 +65,8 @@ const config: ExpoConfig = {
     edgeToEdgeEnabled: true,
     predictiveBackGestureEnabled: false,
     package: env.androidPackage,
-    permissions: ["POST_NOTIFICATIONS"],
+    versionCode: 1,
+    permissions: ["POST_NOTIFICATIONS", "INTERNET", "WRITE_EXTERNAL_STORAGE", "READ_EXTERNAL_STORAGE"],
     intentFilters: [
       {
         action: "VIEW",
@@ -65,6 +75,15 @@ const config: ExpoConfig = {
           {
             scheme: env.scheme,
             host: "*",
+          },
+          {
+            scheme: "merath",
+            host: "*",
+          },
+          {
+            scheme: "https",
+            host: "merath.app",
+            pathPrefix: "/*",
           },
         ],
         category: ["BROWSABLE", "DEFAULT"],

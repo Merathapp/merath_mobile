@@ -31,10 +31,12 @@ export type HeirType =
 
 // ====== بيانات التركة ======
 export interface EstateData {
-  total: number;      // إجمالي التركة بالريال
-  funeral: number;    // تكاليف التجهيز والدفن
-  debts: number;      // الديون المستحقة
-  will: number;       // الوصية (تُحسب بثلث الباقي عادة)
+  total: number;        // إجمالي التركة بالريال
+  funeral?: number;     // تكاليف التجهيز والدفن
+  funeralCosts?: number;  // تكاليف التجهيز والدفن (alternative name)
+  debts?: number;       // الديون المستحقة
+  will?: number;        // الوصية (تُحسب بثلث الباقي عادة)
+  willAmount?: number;  // الوصية (alternative name)
 }
 
 // ====== بيانات الورثة ======
@@ -48,35 +50,45 @@ export interface FractionData {
   denominator: number;  // المقام
 }
 
-// ====== حصة الوارث ======
+// ====== حصة الوارث (Enhanced) ======
 export interface HeirShare {
-  key: HeirType;
+  heir?: string;
+  key?: HeirType;
   name: string;
-  count: number;                    // عدد الورثة من هذا النوع
-  fraction: FractionData;           // النسبة الكسرية
-  amount: number;                   // المبلغ بالريال
-  shares: Array<{
-    person: number;                 // رقم الفرد
+  count?: number;
+  fraction?: FractionData;
+  share?: number;
+  percentage?: number;
+  amount: number;
+  shareType?: string;
+  madhab?: MadhhabType;
+  type?: string;
+  shares?: Array<{
+    person: number;
     amount: number;
   }>;
 }
 
-// ====== نتيجة الحساب ======
+// ====== نتيجة الحساب (Enhanced) ======
 export interface CalculationResult {
   success: boolean;
   madhab: MadhhabType;
   madhhabName: string;
   shares: HeirShare[];
-  specialCases: {
-    awl: boolean;                   // هل يوجد عول
-    auled: number;                  // مقدار العول
-    radd: boolean;                  // هل يوجد رد
-    hijabTypes: string[];           // أنواع الحجب المطبقة
-  };
-  confidence: number;               // مستوى الثقة (0-100)
-  steps: CalculationStep[];         // خطوات الحساب التفصيلية
-  calculationTime: number;          // وقت الحساب بـ ms
-  error?: string;                   // رسالة الخطأ إن وجدت
+  netEstate?: number;
+  finalBase?: number;
+  blockedHeirs?: string[];
+  awlApplied?: boolean;
+  raddApplied?: boolean;
+  bloodRelativesApplied?: boolean;
+  confidence: number;
+  steps: CalculationStep[];
+  calculationTime: number;
+  error?: string;
+  specialCases?: any[];
+  madhhabNotes?: string[];
+  warnings?: string[];
+  confidenceFactors?: string[];
 }
 
 // ====== خطوات الحساب ======

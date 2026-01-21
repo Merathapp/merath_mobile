@@ -22,6 +22,7 @@ export { HijabSystem } from './hijab-system';
 
 // ====== محرك الحسابات ======
 export { InheritanceCalculationEngine } from './calculation-engine';
+export { EnhancedInheritanceEngine, enhancedInheritanceEngine } from './enhanced-calculation-engine';
 
 // ====== نظام الاختبارات ======
 export {

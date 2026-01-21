@@ -75,26 +75,24 @@ export function ResultsDisplay({ result, onClose }: ResultsDisplayProps) {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>حالات خاصة</Text>
           <View style={styles.specialCases}>
-            {currentResult.specialCases.awl && (
+            {currentResult.awlApplied && (
               <View style={styles.specialCaseItem}>
                 <Text style={styles.specialCaseLabel}>العول:</Text>
-                <Text style={styles.specialCaseValue}>
-                  {currentResult.specialCases.auled}
-                </Text>
+                <Text style={styles.specialCaseValue}>مطبق</Text>
               </View>
             )}
-            {currentResult.specialCases.radd && (
+            {currentResult.raddApplied && (
               <View style={styles.specialCaseItem}>
                 <Text style={styles.specialCaseLabel}>الرد:</Text>
                 <Text style={styles.specialCaseValue}>مطبق</Text>
               </View>
             )}
-            {currentResult.specialCases.hijabTypes && 
-              currentResult.specialCases.hijabTypes.length > 0 && (
+            {currentResult.blockedHeirs && 
+              currentResult.blockedHeirs.length > 0 && (
               <View style={styles.hijabContainer}>
-                <Text style={styles.hijabLabel}>أنواع الحجب:</Text>
-                {currentResult.specialCases.hijabTypes.map((type: string, idx: number) => (
-                  <Text key={idx} style={styles.hijabType}>• {type}</Text>
+                <Text style={styles.hijabLabel}>المحجوبون:</Text>
+                {currentResult.blockedHeirs.map((heir: string, idx: number) => (
+                  <Text key={idx} style={styles.hijabType}>• {heir}</Text>
                 ))}
               </View>
             )}
